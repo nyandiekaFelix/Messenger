@@ -1,11 +1,11 @@
 {
-  "name": "codesandbox-nuxt",
+  "name": "sendbird-chat",
   "version": "1.0.0",
-  "description": "Nuxt starter for CodeSandBox",
-  "author": "Nuxt.js Team",
+  "description": "Nuxt-SendBird Chat",
+  "author": "Felix N",
   "private": true,
   "scripts": {
-    "dev": "MINIMAL=1 CSB=1 nuxt",
+    "dev": "node index.js",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -15,6 +15,8 @@
     "@nuxt/http": "^0.3.0",
     "express": "latest",
     "nuxt": "^2.5.1",
-    "reqlim": "^0.0.0"
+    "reqlim": "^0.0.0",
+    "sendbird": "3.0.117",
+    "vuetify": "1.5.22"
   }
 }
