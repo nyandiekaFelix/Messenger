@@ -1,4 +1,7 @@
 .env
+.codesanbox/
+codesanbox.js
+
 # Logs
 logs
 *.log

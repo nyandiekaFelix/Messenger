@@ -1,6 +1,6 @@
 import SendBird from "sendbird";
 
-const appId = "4983BB49-95CD-43EB-8274-D91FBA99E23A";
+const appId = "";
 const sb = new SendBird({ appId: appId });
 
 export default {
