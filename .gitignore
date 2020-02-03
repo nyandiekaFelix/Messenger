@@ -1,6 +1,7 @@
 .env
 .codesanbox/
 codesanbox.js
+static/sw.js
 
 # Logs
 logs

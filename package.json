@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@nuxt/http": "^0.3.0",
+    "@nuxtjs/pwa": "3.0.0-beta.19",
     "express": "latest",
     "nuxt": "^2.5.1",
-    "reqlim": "^0.0.0",
     "sendbird": "3.0.117",
     "vuetify": "1.5.22"
   }
