@@ -1,8 +1,8 @@
 ### SendBird Service
-At the moment this is just to test the integration to SendBird's API
+Here we have the basic methods to power our chat
 
-For now we will use the `testConnection()` function which will log a message to the console after a successful request to the API
+You can test the methods by navigating to `/messenger` and check the logged messages.
 
-You can navigate to `/messenger` and check the logged message
+I'll also be adding proper automated tests using mocks once I start building the UI
 
-The only requirement here is the `appId` needed to create the instance. You can paste the ID directly to the variable for testing purposes but I'll be adding support for automatically loading environment variables
+Remember to paste the `appId` needed to create the instance. You can paste the ID directly to the variable for testing purposes but I'll be adding support for automatically loading environment variables
