@@ -43,6 +43,7 @@ module.exports = {
     // Doc: https://http.nuxtjs.org
     "@nuxt/http",
     '@nuxtjs/pwa',
+    '@nuxtjs/vuetify'
   ],
 
   /*

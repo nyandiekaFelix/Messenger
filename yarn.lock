@@ -960,6 +960,13 @@
     jimp-compact "^0.8.0"
     workbox-cdn "^4.3.1"
 
+"@nuxtjs/vuetify@0.x.x":
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-0.5.7.tgz#99661a833c8f17e7eae0e4f971ca4a9fb7d451fa"
+  integrity sha512-o3EocO64R6B08sR/B1jwX1i9beZiQxaqdnkLX1ysE0dShig1B2nzcbZ1Ak6AXI934FUuGDOGDf388ufH35jLTQ==
+  dependencies:
+    vuetify "^1.5.16"
+
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/youch/-/youch-4.2.3.tgz#36f8b22df5a0efaa81373109851e1d857aca6bed"
@@ -6905,7 +6912,7 @@ vue@^2.6.10:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
 
-vuetify@1.5.22:
+vuetify@^1.5.16:
   version "1.5.22"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.22.tgz#18417ac675c9085946b37cdbbfe9fc010c5cec27"
   integrity sha512-WtfB6fe1+Fsf56nR6LGSh7YgUXp/iF0k9Igtf1XnODjV8OOD8A63ACVD5aG34FhUZS0CgqkcXjyG6EYuz/LFYA==

@@ -14,10 +14,11 @@
   "dependencies": {
     "@nuxt/http": "^0.3.0",
     "@nuxtjs/pwa": "3.0.0-beta.19",
+    "@nuxtjs/vuetify": "0.x.x",
     "dotenv": "^8.2.0",
     "express": "latest",
     "nuxt": "^2.5.1",
-    "sendbird": "3.0.117",
-    "vuetify": "1.5.22"
-  }
+    "sendbird": "3.0.117"
+  },
+  "devDependencies": {}
 }
