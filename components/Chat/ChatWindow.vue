@@ -1,15 +1,31 @@
 <template>
-  <v-card md8>
-      <v-card md12 class="actions" height="40px" outlined>
-        <v-btn color="red" small> Delete</v-btn>
+  <v-layout>
+    <v-flex md12>
+      <v-card flat color="primary lighten-4">
+        <v-card-text>
+          <v-container>
+            <v-list ref="chat" id="messages">
+              <template v-for="(item, index) in messages">
+                <v-subheader :class="item.type" :key="item.id">{{ item.text }}</v-subheader>
+                <br/>
+              </template>
+            </v-list>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-form @submit.prevent="send">
+            <v-text-field v-model="newMessage" label="Type Message..." single-line >
+              <template slot="append">
+                <v-btn flat icon color="info" type="submit">
+                  <v-icon dark>send</v-icon>
+                </v-btn>
+              </template>
+            </v-text-field>
+          </v-form>
+        </v-card-actions>
       </v-card>
-      <v-card md12 class="messages-container" height="60vh" outlined>
-        yfkuftfg
-      </v-card>
-      <v-card md12 class="message-input" height="12vh">
-        <v-text-field placeholder="Type Message..."></v-text-field>
-      </v-card>
-  </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -20,26 +36,35 @@ export default {
     channel: { type : Object, required: false }
   },
   data() {
-    return {}
+    return { 
+      newMessage: '',
+      messages: [] 
+    };
   },
   computed: {
-    messages() {
-      const history = SendBirdService.getChatMessages();
-      
-      return history;
-    }
+    //async messages() {
+      //try{
+        //const history = await SendBirdService.getChatMessages(this.channel);
+        
+        //return history;
+      //} catch(err) { console.log(err) }
+    //}
   },
   methods: {
-    send() {
-      SendBirdService.sendMessage(this.channel, message);
-    }
+    async send() {
+      if (this.newMessage) {
+        try{
+          await SendBirdService.sendMessage(this.channel, this.newMessage);
+        } catch(err) { console.log(err) }
+      } 
+    },
+   
   }
 }
 </script>
 
 <style lang="css">
-.message-input>input{
-  height: 100%;
-  width: 100%;
-}
+.sent {  }
+.received {  }
+.v-form { width: 100% }
 </style>

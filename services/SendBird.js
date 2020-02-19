@@ -60,6 +60,7 @@ export default {
     return new Promise((resolve,reject) => {
       channel.resetMyHistory(function(response, error) {
         if (error) reject(new Error(`Couldn't delete chat: ${error}`));
+        console.log(response);
         resolve(response);
       });
     });
