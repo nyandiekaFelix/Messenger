@@ -5,11 +5,11 @@
     </v-toolbar>
     <v-card elevation="1" tile>
       <v-layout row>
-        <v-flex md4>
+        <v-flex md3>
           <ChatList @selectChat="selectChat"></ChatList>
         </v-flex>
         <v-divider vertical></v-divider>
-        <v-flex md8>
+        <v-flex md9>
           <ChatWindow v-if="selectedChat" :channel="selectedChat"></ChatWindow>
           <v-container v-else>No chat selected</v-container>
         </v-flex>

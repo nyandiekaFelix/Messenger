@@ -26,8 +26,8 @@ export default {
   data() {
     return { chatList: [] };
   },
-  mounted() {
-    (async()=>{ await this.getList() })();
+  async mounted() {
+    await this.getList();
   },
   methods:{
     async getList() {
@@ -40,7 +40,6 @@ export default {
     },
     async deleteChat(channel) {
       try {
-        await SendBirdService.loginUser('1');
         await SendBirdService.deleteChat(channel);
       } catch(err) { console.log(err) }
     },
