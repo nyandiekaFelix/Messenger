@@ -25,17 +25,24 @@ import ChatList from '../components/Chat/ChatList';
 
 
 export default {
+  props: {},
   components: {
     ChatList, ChatWindow
   },
   data () { return { selectedChat: null } },
   methods: {
     selectChat(channel) {
-      console.log('cha cha', channel);
       this.selectedChat = channel;
     }
   },
-  mounted() {}
+  async mounted() {
+    if(this.$route.params.recipient) {
+      try{
+        const chat = await SendBirdService.startChat(['1',`${this.$route.params.recipient}`]);
+        this.selectedChat = chat;
+      } catch(err) { console.log(err)}
+    }
+  }
 };
 </script>
 
