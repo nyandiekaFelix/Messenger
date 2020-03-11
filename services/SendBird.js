@@ -1,7 +1,7 @@
 import SendBird from "sendbird";
 
-const appId = "";
-const sb = new SendBird({ appId: appId });
+const appId = "1BDA10EC-B1F9-4212-B80A-76E9633C2AE1";
+export const sb = new SendBird({ appId: appId });
 
 
 export default {
@@ -16,6 +16,21 @@ export default {
       sb.connect(userId, function(user, error){
         if (error) reject(new Error(`Login Failed: ${error}`));
         resolve(user);
+      });
+    });
+  },
+
+  /**
+   * @function addUserMetadata
+   * @param {Object} payload
+   * @description add custom data to user object 
+   */
+  addUserMetadata(payload) {
+    return new Promise((resolve, reject) => {
+      const user = sb.currentUser;
+      user.addMetaData(payload, function(metadata, error) {
+        if (error) reject(new Error(`Couldn't add data: ${error}`));
+        resolve(metadata);
       });
     });
   },
@@ -105,12 +120,13 @@ export default {
    * @param {Object} channel
    * @description get message history for selected chat
    */
-  getChatMessages(channel) {
+  getChatMessages(query) {
     return new Promise((resolve, reject) => {
-      const previousMessages = channel.createPreviousMessageListQuery();
-      previousMessages.reverse = false;
-      previousMessages.load(function(messages, error) {
+      query.limit = 5
+      query.reverse = false;
+      query.load(function(messages, error) {
         if (error) reject(new Error(`Could not get messages: ${error}`));
+        console.log(JSON.stringify(messages), error)
         resolve(messages);
       });
     });
