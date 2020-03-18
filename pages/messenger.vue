@@ -2,7 +2,7 @@
   <v-flex md12>
     <v-card elevation="2" tile>
       <v-layout row>
-        <v-flex md4 elevation="1">
+        <v-flex xs4 elevation="1">
           <v-toolbar flat dense>
             <v-toolbar-title>Messenger</v-toolbar-title>
           </v-toolbar>
@@ -10,7 +10,7 @@
           <ChatList @selectChat="selectChat" ></ChatList>
         </v-flex>
         <v-divider vertical></v-divider>
-        <v-flex md8>
+        <v-flex xs8>
           <v-toolbar flat dense>
             <v-toolbar-title v-if="recipient">
               <v-avatar size="36">
@@ -25,11 +25,27 @@
                     <v-icon>more_horiz</v-icon>
                   </v-btn>
                 </template>
-                <v-list id="dropdown">
-                  <v-list-tile @click="">View Profile</v-list-tile>
-                  <v-list-tile @click="">Block User</v-list-tile>
-                  <v-list-tile @click="">Report User</v-list-tile>
-                  <v-list-tile @click="">Clear Chat</v-list-tile>
+                <v-list id="dropdown" one-line>
+                  <v-list-tile @click="">
+                    <v-list-tile-title class="menu-item">
+                    View Profile
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title class="menu-item">
+                    Block User
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title class="menu-item">
+                    Report User
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile @click="">
+                    <v-list-tile-title class="menu-item">
+                    Clear Chat
+                    </v-list-tile-title>
+                  </v-list-tile>
                 </v-list>
               </v-menu>
           </v-toolbar>
@@ -86,10 +102,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .v-toolbar__title{
-  font-size: 1.2em;
+  font-size: 1.0em;
   font-weight: 600
 }
-#dropdown { left: 0 }
+#dropdown {  }
+.menu-item { height: 28px; font-size: 11px !important }
+.menu > .v-list__tile { font-size: 11px !important }
+.v-menu__content { top: 70px; left: 860px }
 </style>
+

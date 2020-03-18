@@ -1,17 +1,17 @@
 import SendBird from "sendbird";
 
-const appId = "1BDA10EC-B1F9-4212-B80A-76E9633C2AE1";
+const appId = "";
 export const sb = new SendBird({ appId: appId });
 
 
 export default {
   
   /**
-   * @function loginUser
+   * @function connect
    * @param {number} userId
-   * @description Login a user to SendBird application 
+   * @description Login/Register a user to SendBird application 
    */
-  loginUser(userId) {
+  connect(userId) {
     return new Promise((resolve, reject) => {
       sb.connect(userId, function(user, error){
         if (error) reject(new Error(`Login Failed: ${error}`));

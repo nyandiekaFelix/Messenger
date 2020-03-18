@@ -1,7 +1,9 @@
 <template>
-  <div class="container">
-    <Nuxt/>
-  </div>
+  <v-app id="inspire">
+    <v-container>
+      <Nuxt/>
+    </v-container>
+  </v-app>
 </template>
 
 <style>

@@ -1,15 +1,13 @@
 <template>
-  <v-layout>
-    <v-flex md12>
-      <template flat color="primary lighten-4">
-        <v-layout id="message-card">
+   <v-card flat>
+        <div id="message-card">
           <v-flex xs12 v-scroll:#message-card="loadMoreMessages">
             <v-list>
               <template v-for="(item, index) in messages">
                 <v-list-tile class="ma-0 pa-0">
                   <v-spacer v-if="isCurrentUser(item)"></v-spacer>
                   <v-avatar size="24" v-if="!isCurrentUser(item)"><img :src="recipient.avatar || ''"/></v-avatar> 
-                  <v-chip :color="isCurrentUser(item) ? 'secondary' : null" :class="`pa-2 my-2 message ${getClass(item)}`" :key="item.message_id">{{ item.message }}</v-chip>
+                  <v-chip :color="isCurrentUser(item) ? 'secondary' : null" :class="`pa-0 my-0 message ${getClass(item)}`" :key="item.message_id">{{ item.message }}</v-chip>
                 </v-list-tile>
                 <v-list-tile>
                   <v-spacer v-if="isCurrentUser(item)"></v-spacer>
@@ -18,7 +16,7 @@
               </template>
             </v-list>
           </v-flex>
-        </v-layout>
+        </div>
         <v-divider></v-divider>
         <v-card-actions>
           <v-form @submit.prevent>
@@ -31,9 +29,7 @@
             </v-text-field>
           </v-form>
         </v-card-actions>
-      </template>
-    </v-flex>
-  </v-layout>
+        </v-card>
 </template>
 
 <script>
@@ -61,15 +57,12 @@ export default {
       } catch(err) { console.log(err) }
     },
     async loadMoreMessages(event) {
-      const offsetTop = event.target.scrollTop
-      if(offsetTop === 0) {
-        console.log('Top')
-        this.getMessages()
-      }
+      const offsetTop = event.target.scrollTop;
+      if(offsetTop === 0) this.getMessages();
     },
     getRecipient(){
-      const currentUser = sb.currentUser
-      const { members } = this.channel
+      const currentUser = sb.currentUser;
+      const { members } = this.channel;
       const [recipient] = members.filter(user => user.userId !== currentUser.userId);
       this.recipient = { userId: recipient.userId, ...recipient.metaData };
     },
@@ -77,35 +70,41 @@ export default {
       return message._sender.userId !== this.recipient.userId;
     },
     getClass(message) {
-      return this.isCurrentUser(message) ? 'sent' : 'received'
+      return this.isCurrentUser(message) ? 'sent' : 'received';
     },
     async send() {
       if (this.newMessage) {
         try{
           const response = await SendBirdService.sendMessage(this.channel, this.newMessage);
-          this.messages.push(response)
+          this.messages.push(response);
           this.newMessage = '';
+          this.scrollToBottom();
         } catch(err) { console.log(err) }
       } 
     },
     getDate(timestamp) {
-      return new Date(timestamp).toLocaleTimeString();
+      return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    },
+    scrollToBottom() {
+      const messageCard = document.getElementById('message-card');
+      messageCard.scrollTop = messageCard.scrollHeight - messageCard.clientHeight;
     }
    
   }, 
   async mounted() {
     this.getRecipient();
-    this.messageQuery = await this.channel.createPreviousMessageListQuery()
+    this.messageQuery = await this.channel.createPreviousMessageListQuery();
     await this.getMessages();
+    this.scrollToBottom()
     this.$emit('recipientMeta', this.recipient);
   }
 }
 </script>
 
 <style lang="css">
-#message-card { max-height: 60vh; overflow-y: scroll }
-.timestamp > .v-subheader{ font-size: 12px !important}
-.message { border-radius: 10px;}
+#message-card { max-height: 70vh; min-height: 70vh; overflow-y: scroll; overflow-x: hidden}
+.timestamp > .v-subheader{ font-size: 10px !important}
+.message { border-radius: 10px; max-width: 80%;}
 .v-card__actions{ height: 49px }
 .v-input__slot{ margin-top: 27px }
 .sent { background-color: rgb(41, 182, 246) !important; color: white !important }

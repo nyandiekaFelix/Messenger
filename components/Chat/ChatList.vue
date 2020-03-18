@@ -1,5 +1,4 @@
 <template>
-
   <v-list one-line>
     <template v-for="(item, index) in chatList">
       <v-list-tile :key="index" :id="item.url" class="chat-list-item" avatar ripple @click="openChat($event, item)">
@@ -34,15 +33,10 @@ export default {
   methods:{
     async getList() {
       try {
-        SendBirdService.loginUser('id3').then(res => {
-        
-         console.log(JSON.stringify(res))
-         
-         //SendBirdService.addUserMetadata({fullName: 'John Doe1'}).then(chat => {console.log('1',chat)})
+        SendBirdService.connect('id2').then(async () => {
+          const list = await SendBirdService.getChatList();
+          this.chatList = list;
         });
-       // SendBirdService.startChat(['id2','id3']).then(chat => {console.log('2',JSON.stringify(chat))})
-        const list = await SendBirdService.getChatList();
-        this.chatList = list;
       } catch(err) { console.log(err) }
     },
     getRecipient(chat) {
