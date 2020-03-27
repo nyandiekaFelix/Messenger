@@ -7,7 +7,7 @@
             <v-toolbar-title>Messenger</v-toolbar-title>
           </v-toolbar>
           <v-divider></v-divider>
-          <ChatList @selectChat="selectChat" ></ChatList>
+          <ChatList @selectChat="selectChat" :newChat="newChat"></ChatList>
         </v-flex>
         <v-divider vertical></v-divider>
         <v-flex xs8>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import SendBirdService from "../services/SendBird.js";
+import SendBirdService, {sb} from "../services/SendBird.js";
 import ChatWindow from '../components/Chat/ChatWindow';
 import ChatList from '../components/Chat/ChatList';
 
@@ -80,9 +80,10 @@ export default {
   data () { 
     return { 
       selectedChat: null, 
-      recipient: null
-      } 
-    },
+      recipient: null,
+      newChat: null
+    } 
+  },
   methods: {
     selectChat(channel) {
       this.selectedChat = channel;
@@ -92,12 +93,18 @@ export default {
     }
   },
   async mounted() {
-    if(this.$route.params.recipient) {
-      try{
-        const chat = await SendBirdService.startChat(['1',`${this.$route.params.recipient}`]); // The initiator's ID could come from localstorage
-        this.selectedChat = chat;
-      } catch(err) { console.log(err)}
-    }
+    SendBirdService.connect('002').then( async() => {
+      console.log('PSR');
+      if(this.$route.params.recipient) {
+        try{
+          const currentUser = sb.currentUser.userId
+          const chat = await SendBirdService.startChat([currentUser,`${this.$route.params.recipient}`]);
+          this.newChat = chat;
+          this.selectedChat = chat;
+        } catch(err) { console.log(err); }
+      }
+    });
+    
   }
 };
 </script>

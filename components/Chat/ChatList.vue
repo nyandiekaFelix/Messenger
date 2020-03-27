@@ -1,7 +1,7 @@
 <template>
   <v-list one-line>
     <template v-for="(item, index) in chatList">
-      <v-list-tile :key="index" :id="item.url" class="chat-list-item" avatar ripple @click="openChat($event, item)">
+      <v-list-tile :key="index" :id="item.url" class="chat-list-item" avatar ripple @click="openChat(item)">
         <v-list-tile-avatar>
           <img :src="getRecipient(item).avatar">
         </v-list-tile-avatar>
@@ -23,21 +23,25 @@ import SendBirdService, {sb} from '../../services/SendBird.js';
 import users from './userMocks.js'
 
 export default {
-  props: {},
+  props: { newChat: { type : Object, required: false }},
   data() {
     return { chatList: [], selectedId: null };
   },
-  async mounted() {
-    await this.getList();
+  watch: {
+    newChat() { 
+      this.getList(); 
+      this.openChat(this.newChat);
+    }
+  },
+  mounted() {
+    this.getList();
   },
   methods:{
-    async getList() {
-      try {
-        SendBirdService.connect('id2').then(async () => {
-          const list = await SendBirdService.getChatList();
-          this.chatList = list;
-        });
-      } catch(err) { console.log(err) }
+    getList() {
+      SendBirdService.connect('002').then(async (res)=> {
+        const list = await SendBirdService.getChatList();
+        this.chatList = list;
+      });
     },
     getRecipient(chat) {
       const currentUser = sb.currentUser
@@ -51,19 +55,20 @@ export default {
     getLastMessage(chat) {
       if (chat.lastMessage) {
         const { lastMessage: { createdAt, message} } = chat;
-        const timestamp = new Date(createdAt).toLocaleDateString('en-US')
-        return { time: timestamp, message }
+        const timestamp = new Date(createdAt).toLocaleDateString('en-US');
+        return { time: timestamp, message };
       }
-      return { time: 'timestamp', message: 'none' }
+      return { time: '', message: '' };
     },
     async deleteChat(channel) {
       try {
         await SendBirdService.deleteChat(channel);
       } catch(err) { console.log(err) }
     },
-    openChat(event, channel) {
+    openChat(channel) {
       const prevClicked = document.getElementById(this.selectedId);
       if(prevClicked) prevClicked.style.background = 'white';
+      
       
       const currentClicked = document.getElementById(channel.url);
       this.selectedId = channel.url

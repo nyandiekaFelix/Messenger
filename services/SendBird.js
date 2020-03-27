@@ -28,7 +28,7 @@ export default {
   addUserMetadata(payload) {
     return new Promise((resolve, reject) => {
       const user = sb.currentUser;
-      user.addMetaData(payload, function(metadata, error) {
+      user.createMetaData(payload, function(metadata, error) {
         if (error) reject(new Error(`Couldn't add data: ${error}`));
         resolve(metadata);
       });

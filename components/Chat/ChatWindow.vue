@@ -72,14 +72,13 @@ export default {
     getClass(message) {
       return this.isCurrentUser(message) ? 'sent' : 'received';
     },
-    async send() {
+    send() {
       if (this.newMessage) {
-        try{
-          const response = await SendBirdService.sendMessage(this.channel, this.newMessage);
-          this.messages.push(response);
-          this.newMessage = '';
-          this.scrollToBottom();
-        } catch(err) { console.log(err) }
+        SendBirdService.sendMessage(this.channel, this.newMessage)
+          .then(response => {
+            this.messages.push(response);
+            this.newMessage = '';
+          }).then(() => { this.scrollToBottom() });
       } 
     },
     getDate(timestamp) {
